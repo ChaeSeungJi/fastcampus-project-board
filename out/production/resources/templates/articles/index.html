@@ -9,6 +9,7 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!-- 링크를 통해서 디자인을 입히면 새로운페이지마다 링크를 타고 가야함. 로컬에다가 다운 후 사용하길 권장.(지금은 무겁지 않기 때문에 그냥 사용)  -->
     <link href="/css/search-bar.css" rel="stylesheet"> <!--스타일 입히는 건 따로 불러옴-->
+    <link href="/css/articles/table-header.css" rel="stylesheet">
 </head>
 <body>
 
@@ -63,10 +64,10 @@
         <table class="table" id="article-table">
             <thead>
             <tr>
-                <th class="title col-6">제목</th>
-                <th class="hashtag col-2">해시태그</th>
-                <th class="user-id col">작성자</th>
-                <th class="created-at col">작성일</th>
+                <th class="title col-6"><a>제목</a></th>
+                <th class="hashtag col-2"><a>해시태그</a></th>
+                <th class="user-id col"><a>작성자</a></th>
+                <th class="created-at col"><a>작성일</a></th>
             </tr>
             </thead>
             <tbody>
@@ -78,7 +79,7 @@
             </tr>
             <tr>
                 <td>두번째글</td>
-                <td>#Python</td>
+                <td><div id="Pytho"></div>n</td>
                 <td>SeungJi</td>
                 <td>2023-02-06</td>
             </tr>

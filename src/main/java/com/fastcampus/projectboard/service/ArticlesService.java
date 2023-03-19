@@ -29,7 +29,8 @@ public class ArticlesService {
     @Transactional(readOnly = true)
     public Page<ArticleDto> searchArticles(SearchType searchType, String searchKeyword, Pageable pageable) {
         if (searchKeyword == null || searchKeyword.isBlank()) {
-            return articleRepository.findAll(pageable).map(ArticleDto::from);
+            Page<Article> articles = articleRepository.findAll(pageable);
+            return articles.map(ArticleDto::from);
             // articleRepository.findAll(pageable) -> Page<Article> 반환 이후 map 메서드를 통해 Article을 ArticeDto로 변환해 Page<ArticleDto>가 되는것임.
 
         }

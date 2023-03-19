@@ -49,6 +49,8 @@ public class ArticleController {
         Page<ArticleResponse> articles = articlesService.searchArticles(searchType,searchValue,pageable).map(ArticleResponse::from);
         List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(),articles.getTotalPages());
 
+        // 타임리프에서 articleResponse객체를 보고 필드를 불러오면 안됨 실제 articleService는 ArticleDto를 참조하기 때문에 ArticleDto의 필드를 불러야함.
+
         map.addAttribute("articles", articles);
         map.addAttribute("paginationBarNumbers",barNumbers);
 
