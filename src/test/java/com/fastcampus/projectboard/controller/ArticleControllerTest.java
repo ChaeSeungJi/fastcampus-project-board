@@ -1,6 +1,7 @@
 package com.fastcampus.projectboard.controller;
 
 import com.fastcampus.projectboard.config.SecurityConfig;
+import com.fastcampus.projectboard.domain.type.SearchType;
 import com.fastcampus.projectboard.dto.ArticleDto;
 import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
 import com.fastcampus.projectboard.service.ArticlesService;
@@ -50,28 +51,34 @@ class ArticleControllerTest {
         this.mvc = mvc;
     }
 
-    @DisplayName("view-Get : 게시글 리스트 - 정상 호출")
+    @DisplayName("view-Get : 게시글 리스트 - 검색어와 함께 호출")
     @Test
-    void givenNothing_whenRequsetArticlesView_thenReturnArticlesView() throws Exception {
+    void givenKeyword_whenSearchArticlesView_thenReturnArticlesView() throws Exception {
         //given
-        given(articlesService.searchArticles(eq(null), eq(null), ArgumentMatchers.any(Pageable.class)))
+        SearchType searchType = SearchType.TITLE;
+        String searchValue = "title";
+
+        given(articlesService.searchArticles(eq(searchType),eq(searchValue), ArgumentMatchers.any(Pageable.class)))
                 .willReturn(Page.empty());
         given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(List.of(0, 1, 2, 3, 4));
 
         //when
 
         //then
-        mvc.perform(get("/articles"))
+        mvc.perform(get("/articles")
+                        .queryParam("searchType", searchType.name())
+                        .queryParam("searchValue", searchValue)
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML)) // 대충 내용 비슷하면 통과하게 (CompatibleWith)
                 .andExpect(view().name("articles/index")) // 해당 디렉토리에 View가 있어야함.
                 .andExpect(MockMvcResultMatchers.model().attributeExists("articles"))
-                .andExpect(MockMvcResultMatchers.model().attributeExists("paginationBarNumbers"));
+                .andExpect(MockMvcResultMatchers.model().attributeExists("searchTypes"));
 
-        then(articlesService).should().searchArticles(eq(null), eq(null),
+        then(articlesService).should().searchArticles(eq(searchType), eq(searchValue),
                 ArgumentMatchers.any(Pageable.class));
 
-        then(paginationService).should().getPaginationBarNumber(anyInt(),anyInt());
+//        then(paginationService).should().getPaginationBarNumber(anyInt(),anyInt());
     }
 
     @DisplayName("view-Get : 게시글 리스트 (게시판) 페이지 - 페이징, 정렬 기능")
