@@ -66,8 +66,8 @@ public class ArticlesService {
         }
     }
 
-    public void deleteArticle(long articleId) {
-        articleRepository.deleteById(articleId);
+    public void deleteArticle(long articleId, String userId) {
+        articleRepository.deleteByIdAndUserAccount_UserId(articleId,userId);
     }
 
     public ArticleDto getArticle(Long articleId) {

@@ -28,6 +28,8 @@ dependencies {
 
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     implementation 'org.springframework.boot:spring-boot-starter-security'  // 로그인 인증기능?
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
